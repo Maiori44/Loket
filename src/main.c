@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "encryptor.h"
 #include "dynstack.h"
 
 int gargc;
@@ -26,6 +27,10 @@ int main(int argc, char *argv[]) {
 	while ((c = fgetc(file)) != EOF)
 		pushstack(chars, c);
 	fclose(file);
+	size_t pathlen = strlen(path);
+	(pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0
+		? decryptfile
+		: encryptfile)(path, chars, pathlen);
 	freestack(chars);
 	free(path);
 	free(key);
