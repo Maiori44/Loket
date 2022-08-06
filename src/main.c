@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
 	while ((c = fgetc(file)) != EOF)
 		pushstack(chars, c);
 	fclose(file);
+	freestack(chars);
 	free(path);
 	free(key);
 	return 0;
