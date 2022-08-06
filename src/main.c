@@ -10,11 +10,8 @@ char *getarg(int n, char *msg);
 int main(int argc, char *argv[]) {
 	gargc = argc;
 	gargv = argv;
-	char *mode = getarg(1, "Insert mode: (encrypt/decrypt)");
-	char *path = getarg(2, "Insert path:");
-	char *key  = getarg(3, "Insert key:");
-	//printf("Mode: %s\nPath: %s\nKey:  %s\n", mode, path, key);
-	free(mode);
+	char *path = getarg(1, "Insert path:");
+	char *key  = getarg(2, "Insert key:");
 	free(path);
 	free(key);
 	return 0;
