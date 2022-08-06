@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 char *getarg(int n, char *msg) {
 	char *result = malloc(sizeof(char) * 200);
 	if (n < gargc)
-		result = gargv[n];
+		strcpy(result, gargv[n]);
 	else {
 		puts(msg);
 		scanf(" %[^\n]%*c", result);
