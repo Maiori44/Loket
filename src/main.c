@@ -12,7 +12,19 @@ int main(int argc, char *argv[]) {
 	gargc = argc;
 	gargv = argv;
 	char *path = getarg(1, "Insert path:");
-	char *key  = getarg(2, "Insert key:");
+	char *key = getarg(2, "Insert key:");
+	FILE *file = fopen(path, "r");
+	if (!file) {
+		puts("File not found!");
+		return 1;
+	}
+	fseek(file, 0L, SEEK_END);
+	int size = ftell(file);
+	rewind(file);
+	dynstack *chars = newstack(size);
+	int c;
+	while ((c = fgetc(file)) != EOF)
+		pushstack(chars, c);
 	free(path);
 	free(key);
 	return 0;
