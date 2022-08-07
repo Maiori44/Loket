@@ -40,8 +40,17 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i <= size; i++)
 		pushstack(fullkey, key[i % keylen] * m);
 
-	//Encrypt/decrypt
-
+	//Encrypt/decrypt and save
+	ITERATE_STACK(chars)
+		chars->stack[i] += popstack(fullkey);
+	if (decrypt)
+		path[pathlen - 4] = '\0';
+	else
+		strcat(path, ".lok");
+	FILE *output = fopen(path, "w+");
+	ITERATE_STACK(chars)
+		fprintf(output, "%c", chars->stack[i]);
+	fclose(output);
 
 	//Free allocated memory
 	freestack(chars);
