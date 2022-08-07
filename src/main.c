@@ -40,12 +40,8 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i <= size; i++)
 		pushstack(fullkey, key[i % keylen] * m);
 
-	//Start main encryptor
-	/*size_t pathlen = strlen(path);
-	(pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0
-		? decryptfile
-		: encryptfile)(path, chars, pathlen);*/
-	
+	//Encrypt/decrypt
+
 
 	//Free allocated memory
 	freestack(chars);
@@ -56,7 +52,7 @@ int main(int argc, char *argv[]) {
 }
 
 char *getarg(int n, char *msg) {
-	char *result = malloc(sizeof(char) * 200);
+	char *result = malloc(sizeof(char) * 204);
 	if (n < gargc)
 		strcpy(result, gargv[n]);
 	else {
