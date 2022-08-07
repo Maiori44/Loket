@@ -5,15 +5,23 @@
 #include <stdbool.h>
 #include "dynstack.h"
 
+#define ARG(arg) memcmp(argv[1], arg, (size_t) sizeof arg) == 0
+
 int gargc;
 char **gargv;
 char *getarg(int n, char *msg);
 
 int main(int argc, char *argv[]) {
-	//Check for -V or --version
-	if (argc >= 2 && (memcmp(argv[1], "-V", 2) || memcmp(argv[1], "--version", 9))) {
-		puts("loket 0.9.0");
-		return 0;
+	//Check for flags
+	if (argc >= 2) {
+		if (ARG("-V") || ARG("--version")) {
+			puts("loket 0.9.0");
+			return 0;
+		} else if (ARG("-L") || ARG("--license")) {
+#include "license.h"
+			puts(LICENSE);
+			return 0;
+		}
 	}
 
 	//Get path and key
