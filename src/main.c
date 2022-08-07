@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "encryptor.h"
 #include "dynstack.h"
 
 int gargc;
@@ -38,10 +37,12 @@ int main(int argc, char *argv[]) {
 		pushstack(fullkey, key[i % keylen]);
 
 	//Start main encryptor
-	size_t pathlen = strlen(path);
+	/*size_t pathlen = strlen(path);
 	(pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0
 		? decryptfile
-		: encryptfile)(path, chars, pathlen);
+		: encryptfile)(path, chars, pathlen);*/
+
+	
 
 	//Free allocated memory
 	freestack(chars);
