@@ -12,7 +12,7 @@ char *getarg(int n, char *msg);
 int main(int argc, char *argv[]) {
 	//Check for -V or --version
 	if (argc >= 2 && (memcmp(argv[1], "-V", 2) || memcmp(argv[1], "--version", 9))) {
-		puts("loket 1.0.0");
+		puts("loket 0.9.0");
 		return 0;
 	}
 
