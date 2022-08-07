@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 #include "dynstack.h"
 
 int gargc;
@@ -14,6 +15,8 @@ int main(int argc, char *argv[]) {
 	gargv = argv;
 	char *path = getarg(1, "Insert path:");
 	char *key = getarg(2, "Insert key:");
+	size_t pathlen = strlen(path);
+	bool decrypt = pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0;
 
 	//Read file
 	FILE *file = fopen(path, "r");
@@ -33,15 +36,15 @@ int main(int argc, char *argv[]) {
 	//Create full key
 	dynstack *fullkey = newstack(size);
 	size_t keylen = strlen(key);
+	int m = decrypt ? -1 : 1;
 	for (int i = 0; i <= size; i++)
-		pushstack(fullkey, key[i % keylen]);
+		pushstack(fullkey, key[i % keylen] * m);
 
 	//Start main encryptor
 	/*size_t pathlen = strlen(path);
 	(pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0
 		? decryptfile
 		: encryptfile)(path, chars, pathlen);*/
-
 	
 
 	//Free allocated memory
