@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdbool.h>
 #include "dynstack.h"
+#include "encryptor.h"
 
 #define ARG(arg) memcmp(argv[1], arg, (size_t) sizeof arg) == 0
 
@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
 	char *path = getarg(1, "Insert path:");
 	char *key = getarg(2, "Insert key:");
 	size_t pathlen = strlen(path);
-	bool decrypt = pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0;
 
 	//Read file
 	FILE *file = fopen(path, "rb");
@@ -50,17 +49,14 @@ int main(int argc, char *argv[]) {
 	//Create full key
 	dynstack *fullkey = newstack(size);
 	size_t keylen = strlen(key);
-	int m = decrypt ? -1 : 1;
 	for (int i = 0; i <= size; i++)
-		pushstack(fullkey, key[i % keylen] * m);
+		pushstack(fullkey, key[i % keylen]);
 
 	//Encrypt/decrypt and save
-	ITERATE_STACK(chars)
-		chars->stack[i] += popstack(fullkey);
-	if (decrypt)
-		path[pathlen - 4] = '\0';
+	if (pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0)
+		encryptfile(chars, fullkey, path);
 	else
-		strcat(path, ".lok");
+		decryptfile(chars, fullkey, path, pathlen);
 	FILE *output = fopen(path, "w+b");
 	ITERATE_STACK(chars)
 		fprintf(output, "%c", chars->stack[i]);
