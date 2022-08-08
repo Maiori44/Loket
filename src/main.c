@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	//Check for flags
 	if (argc >= 2) {
 		if (ARG("-V") || ARG("--version")) {
-			puts("loket 0.9.0");
+			puts("loket 0.9.1");
 			return 0;
 		} else if (ARG("-L") || ARG("--license")) {
 #include "license.h"
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 	bool decrypt = pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0;
 
 	//Read file
-	FILE *file = fopen(path, "r");
+	FILE *file = fopen(path, "rb");
 	if (!file) {
 		puts("File not found!");
 		return 1;
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 		path[pathlen - 4] = '\0';
 	else
 		strcat(path, ".lok");
-	FILE *output = fopen(path, "w+");
+	FILE *output = fopen(path, "w+b");
 	ITERATE_STACK(chars)
 		fprintf(output, "%c", chars->stack[i]);
 	fclose(output);
