@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
 	FILE *file = fopen(path, "rb");
 	if (!file) {
 		puts("File not found!");
+		free(path);
+		free(key);
 		return 1;
 	}
 	fseek(file, 0L, SEEK_END);
@@ -83,6 +85,7 @@ char *getarg(int n, char *msg) {
 		result[len - 1] = '\0';
 	if (len >= 200) {
 		puts("The given text is too long!");
+		free(result);
 		exit(1);
 	}
 	return result;
