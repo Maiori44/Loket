@@ -54,9 +54,9 @@ int main(int argc, char *argv[]) {
 
 	//Encrypt/decrypt and save
 	if (pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0)
-		encryptfile(chars, fullkey, path);
-	else
 		decryptfile(chars, fullkey, path, pathlen);
+	else
+		encryptfile(chars, fullkey, path);
 	FILE *output = fopen(path, "w+b");
 	ITERATE_STACK(chars)
 		fprintf(output, "%c", chars->stack[i]);
