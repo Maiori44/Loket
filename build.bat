@@ -1,4 +1,4 @@
 @echo off
 cls
 cd src
-gcc main.c dynstack.c -o main -Wall && .\main %1 %2
+gcc main.c dynstack.c -o loket -Wall && .\loket %1 %2

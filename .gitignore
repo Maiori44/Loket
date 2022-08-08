@@ -1,5 +1,5 @@
 .vscode/
-src/main
+src/loket
 *.txt
 *.lok
 *.exe
