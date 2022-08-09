@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 #include "dynstack.h"
 #include "encryptor.h"
 
@@ -64,6 +65,14 @@ int main(int argc, char *argv[]) {
 		decryptfile(chars, fullkey, checksum, path, pathlen);
 	else
 		encryptfile(chars, fullkey, checksum, path);
+	if (access(path, F_OK) == 0) {
+		printf("Cannot save output as \"%s\" because the file already exists, overwrite? (Y/N) ", path);
+		char reply;
+		scanf("%c", &reply);
+		if (tolower(reply) == 'n') {
+			
+		}
+	}
 	FILE *output = fopen(path, "w+b");
 	ITERATE_STACK(chars)
 		fprintf(output, "%c", chars->stack[i]);
