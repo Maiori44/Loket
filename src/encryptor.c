@@ -19,7 +19,7 @@ void decryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *pa
 	int kc2 = popstack(chars) - fullkey->stack[1];
 	int kc1 = popstack(chars) - fullkey->stack[0];
 	if (checksum != ((kc2 << 8) | kc1)) {
-		puts("Incorrect password!");
+		puts("Incorrect key!");
 		freestack(chars);
 		freestack(fullkey);
 		free(path);
