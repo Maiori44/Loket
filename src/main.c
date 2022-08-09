@@ -70,7 +70,25 @@ int main(int argc, char *argv[]) {
 		char reply;
 		scanf("%c", &reply);
 		if (tolower(reply) == 'n') {
-			
+			//Add "(n)" in filename to avoid overwrite
+			pathlen = strlen(path);
+			char *filename = malloc(sizeof(char) * pathlen);
+			char *extension = malloc(sizeof(char) * pathlen);
+			size_t filenamelen;
+			for (filenamelen = 0; filenamelen <= pathlen; filenamelen++)
+				if (path[filenamelen] == '.')
+					break;
+			strncpy(filename, path, filenamelen);
+			filename[filenamelen] = '\0';
+			strncpy(extension, path + filenamelen, pathlen - filenamelen);
+			extension[pathlen - filenamelen] = '\0';
+			int i = 0;
+			do {
+				i++;
+				snprintf(path, 208, "%s (%d)%s", filename, i, extension);
+			} while (access(path, F_OK) == 0);
+			free(filename);
+			free(extension);
 		}
 	}
 	FILE *output = fopen(path, "w+b");
@@ -86,7 +104,7 @@ int main(int argc, char *argv[]) {
 }
 
 char *getarg(int n, char *msg) {
-	char *result = malloc(sizeof(char) * 204);
+	char *result = malloc(sizeof(char) * 210);
 	if (n < gargc)
 		strcpy(result, gargv[n]);
 	else {
