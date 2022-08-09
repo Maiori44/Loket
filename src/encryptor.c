@@ -4,9 +4,12 @@
 #include "encryptor.h"
 
 void encryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *path) {
-	int kc1 = fullkey->stack[0], kc2 = fullkey->stack[1];
+	int kc1 = (checksum & 0xFF) + fullkey->stack[0];
+	int kc2 = (checksum >> 8) + fullkey->stack[1];
 	ITERATE_STACK(chars)
 		chars->stack[i] += popstack(fullkey);
+	pushstack(chars, kc1);
+	pushstack(chars, kc2);
 	strcat(path, ".lok");
 }
 
