@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 	fseek(file, 0L, SEEK_END);
 	int size = ftell(file);
 	rewind(file);
-	dynstack *chars = newstack(size);
+	dynstack *chars = newstack(size + 2);
 	int c;
 	while ((c = fgetc(file)) != EOF)
 		pushstack(chars, c);
