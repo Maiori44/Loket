@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
 	uint16_t checksum = 0;
 	for (int i = 0; i < keylen; i++)
 		checksum += key[i];
+	free(key);
 
 	//Encrypt/decrypt and save
 	if (pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0)
@@ -72,7 +73,6 @@ int main(int argc, char *argv[]) {
 	freestack(chars);
 	freestack(fullkey);
 	free(path);
-	free(key);
 	return 0;
 }
 

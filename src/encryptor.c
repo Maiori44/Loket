@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 #include "dynstack.h"
@@ -14,6 +16,17 @@ void encryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *pa
 }
 
 void decryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *path, size_t pathlen) {
+	int kc2 = popstack(chars) - fullkey->stack[1];
+	int kc1 = popstack(chars) - fullkey->stack[0];
+	if (checksum != ((kc2 << 8) | kc1)) {
+		puts("Incorrect password!");
+		freestack(chars);
+		freestack(fullkey);
+		free(path);
+		exit(1);
+	}
+	popstack(fullkey);
+	popstack(fullkey);
 	ITERATE_STACK(chars)
 		chars->stack[i] -= popstack(fullkey);
 	path[pathlen - 4] = '\0';
