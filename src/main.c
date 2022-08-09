@@ -48,17 +48,20 @@ int main(int argc, char *argv[]) {
 		pushstack(chars, c);
 	fclose(file);
 
-	//Create full key
+	//Create key data
 	dynstack *fullkey = newstack(size);
 	size_t keylen = strlen(key);
 	for (int i = 0; i <= size; i++)
 		pushstack(fullkey, key[i % keylen]);
+	int checksum = 0;
+	for (int i = 0; i < keylen; i++)
+		checksum += key[i];
 
 	//Encrypt/decrypt and save
 	if (pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0)
-		decryptfile(chars, fullkey, path, pathlen);
+		decryptfile(chars, fullkey, checksum, path, pathlen);
 	else
-		encryptfile(chars, fullkey, path);
+		encryptfile(chars, fullkey, checksum, path);
 	FILE *output = fopen(path, "w+b");
 	ITERATE_STACK(chars)
 		fprintf(output, "%c", chars->stack[i]);
