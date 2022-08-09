@@ -3,13 +3,13 @@
 #include "encryptor.h"
 
 void encryptfile(dynstack *chars, dynstack *fullkey, char *path) {
-    ITERATE_STACK(chars)
+	ITERATE_STACK(chars)
 		chars->stack[i] += popstack(fullkey);
-    strcat(path, ".lok");
+	strcat(path, ".lok");
 }
 
 void decryptfile(dynstack *chars, dynstack *fullkey, char *path, size_t pathlen) {
-    ITERATE_STACK(chars)
+	ITERATE_STACK(chars)
 		chars->stack[i] -= popstack(fullkey);
-    path[pathlen - 4] = '\0';
+	path[pathlen - 4] = '\0';
 }
