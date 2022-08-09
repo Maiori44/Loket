@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <ctype.h>
 #include "dynstack.h"
@@ -53,7 +54,7 @@ int main(int argc, char *argv[]) {
 	size_t keylen = strlen(key);
 	for (int i = 0; i <= size; i++)
 		pushstack(fullkey, key[i % keylen]);
-	int checksum = 0;
+	uint16_t checksum = 0;
 	for (int i = 0; i < keylen; i++)
 		checksum += key[i];
 
