@@ -1,8 +1,6 @@
 Loket is a very simple yet safe encryptor that only requires a key to work.
 
 ## How it works
-Placeholder text, better explenation will be done later.
-
 Every character of the file is summed with a character of the key and the sum of all characters of the key, this sum is then also encrypted and stored in the output `*.lok` file.  
 If someone will try to decrypt the file using the wrong key, it will decrypt the sum incorrectly, and will not match the sum of the incorrect key and so the program will refuse to decrypt the file (which would have resulted in a corrupted file anyway).  
 Decrypting the sum correctly is also necessary to decrypt the rest of the file since, as stated previously, the sum is added to each character in the original file.  
