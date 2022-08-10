@@ -1,4 +1,6 @@
-Loket is a very simple yet safe encryptor that only requires a key to work.
+Loket is a very simple encryptor that only requires a key to work.
+
+**NOTE: While the program is in version 1.0, it is not safe enough currently, and should be seen as a toy for learning, updates will be released to improve safety**
 
 ## How it works
 Every character of the file is summed with a character of the key and the sum of all characters of the key, this sum is then also encrypted and stored in the output `*.lok` file.  
