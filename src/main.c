@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 	fseek(file, 0L, SEEK_END);
 	int size = ftell(file);
 	rewind(file);
-	dynstack *chars = newstack(size + 2);
+	dynstack *chars = newstack(size);
 	int c;
 	while ((c = fgetc(file)) != EOF)
 		pushstack(chars, c);
@@ -62,9 +62,9 @@ int main(int argc, char *argv[]) {
 
 	//Encrypt/decrypt and save
 	if (pathlen >= 4 && memcmp(path + pathlen - 4, ".lok", 4) == 0)
-		decryptfile(chars, fullkey, checksum, path, pathlen);
+		decryptfile(chars, fullkey, path, pathlen);
 	else
-		encryptfile(chars, fullkey, checksum, path);
+		encryptfile(chars, fullkey, path);
 	if (access(path, F_OK) == 0) {
 		printf("Cannot save output as \"%s\" because the file already exists, overwrite? (Y/N) ", path);
 		char reply;
