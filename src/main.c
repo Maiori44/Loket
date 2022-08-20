@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 	//Check for flags
 	if (argc >= 2 && argv[1][0] == '-') {
 		if (ARG("-V") || ARG("--version")) {
-			puts("loket 1.0");
+			puts("loket 2.0-indev");
 			return 0;
 		} else if (ARG("-L") || ARG("--license")) {
 #include "license.h"
