@@ -6,8 +6,8 @@
 #include "encryptor.h"
 
 void encryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *path) {
-	int kc1 = (checksum & 0xFF) + fullkey->stack[0];
-	int kc2 = (checksum >> 8) + fullkey->stack[1];
+	uint8_t kc1 = (checksum & 0xFF) + fullkey->stack[0];
+	uint8_t kc2 = (checksum >> 8) + fullkey->stack[1];
 	ITERATE_STACK(chars)
 		chars->stack[i] += popstack(fullkey) + checksum;
 	pushstack(chars, kc1);
@@ -16,8 +16,8 @@ void encryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *pa
 }
 
 void decryptfile(dynstack *chars, dynstack *fullkey, uint16_t checksum, char *path, size_t pathlen) {
-	int kc2 = popstack(chars) - fullkey->stack[1];
-	int kc1 = popstack(chars) - fullkey->stack[0];
+	uint8_t kc2 = popstack(chars) - fullkey->stack[1];
+	uint8_t kc1 = popstack(chars) - fullkey->stack[0];
 	if (checksum != ((kc2 << 8) | kc1)) {
 		puts("Incorrect key!");
 		freestack(chars);
