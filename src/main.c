@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	fseek(file, 0L, SEEK_END);
-	int size = ftell(file);
+	long size = ftell(file);
 	rewind(file);
 	dynstack *chars = newstack(size + 2);
 	int c;
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 			filename[filenamelen] = '\0';
 			strncpy(extension, path + filenamelen, pathlen - filenamelen);
 			extension[pathlen - filenamelen] = '\0';
-			int i = 0;
+			unsigned int i = 0;
 			do {
 				i++;
 				snprintf(path, 208, "%s (%d)%s", filename, i, extension);
